@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+export default class Cars extends React.Component{
+	constructor(){
+  	super()
+    
+    this.state = {
+    	limit: 5,
+      cars: ["Audi", "Alfa Romeo", "BMW", "Citroen", "Dacia", "Ford", "Mercedes", "Peugeot", "Porsche", "VW","a","b","c","d","e","Audi", "Alfa Romeo", "BMW", "Citroen", "Dacia", "Ford", "Mercedes", "Peugeot", "Porsche",]
+    }
+    
+    
+  }
+  
+  showPreviousCars() {
+    this.setState({
+    	limit: this.state.limit - 5
+    })
+  }
+  
+  showNextCars(){
+  	this.setState({
+    	limit: this.state.limit + 5
+    })
+  }
+  
+  
+  render(){
+  	let cars = this.state.cars.slice(0,this.state.limit);
+  	return(
+    	<div className="car-wrapper">
+        <ul>
+          <li className="btn btn-danger"><a onClick={this.showPreviousCars.bind(this)}>Previous 5</a></li>
+       	  {cars.map((car, i) => {
+        	return(
+          	<div className="border" key={i}><i className="fa fa-heart-o" style={{padding:"10px",backgroundColor:"red",borderRadius: "50%",margin:"15px"}}></i>{car}</div>
+          	
+          )
+        	
+        })}
+        <li className="btn btn-success"><a onClick={this.showNextCars.bind(this)}>Next 5</a></li>
+        </ul>
+
+    	</div>
+    )
+  }
 }
 
-export default App;
+
+
+
